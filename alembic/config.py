@@ -209,10 +209,12 @@ class Config(object):
         commands.
 
         """
-        import alembic
 
+        import alembic
         package_dir = os.path.abspath(os.path.dirname(alembic.__file__))
-        return os.path.join(package_dir, "templates")
+        default_alembic_templates_dir = os.path.join(package_dir, "templates")
+        alembic_templates_dir = os.environ.get('ALEMBIC_TEMPLATES_DIR', default_alembic_templates_dir)
+        return alembic_templates_dir
 
     def get_section(self, name, default=None):
         """Return all the configuration options from a given .ini file section
